@@ -9,17 +9,18 @@ resource "aws_ecs_task_definition" "task" {
 
   network_mode = "awsvpc"
 
-  requires_compatibilities = ["FARGATE"]
+  requires_compatibilities = [
+    "FARGATE"
+  ]
 
   cpu = "256"
 
   memory = "512"
 
-  execution_role_arn = aws_iam_role.ecs_execution.arn
 
   container_definitions = jsonencode([
     {
-      name  = "nginx"
+      name = "nginx"
 
       image = "nginx:latest"
 
@@ -33,7 +34,6 @@ resource "aws_ecs_task_definition" "task" {
     }
   ])
 }
-
 resource "aws_ecs_service" "service" {
 
   name = "nginx-service"
